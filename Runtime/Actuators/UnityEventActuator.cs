@@ -3,11 +3,8 @@ using UnityEngine.Events;
 
 namespace VAT.Logic
 {
-    public class UnityEventNode : Node
+    public class UnityEventActuator : Actuator
     {
-        [SerializeField]
-        private Node _input;
-
         [SerializeField]
         private Threshold _threshold = new();
 
@@ -17,17 +14,7 @@ namespace VAT.Logic
         [SerializeField]
         private UnityEvent _onThresholdLost;
 
-        private void OnEnable()
-        {
-            _input.OnValueChanged += OnInputChanged;
-        }
-
-        private void OnDisable()
-        {
-            _input.OnValueChanged -= OnInputChanged;
-        }
-
-        private void OnInputChanged(float value)
+        protected override void OnInputChanged(float value)
         {
             Value = value;
 
