@@ -1,6 +1,6 @@
 {
     "name": "com.virtualafterthoughts.logic",
-	"version": "1.0.0",
+	"version": "1.0.1",
     "displayName": "VAT Logic",
     "description": "Logic nodes, gates, and actuator scripts for Unity.",
 	"unity": "2021.3",
