@@ -5,8 +5,22 @@ namespace VAT.Logic
     public abstract class Actuator : Node
     {
         [SerializeField]
-        private Node _input = null;
+        [Tooltip("The default input node that this actuator will read from.")]
+        private Node _defaultInput = null;
 
+        public Node DefaultInput
+        {
+            get
+            {
+                return _defaultInput;
+            }
+            set
+            {
+                _defaultInput = value;
+            }
+        }
+
+        private Node _input = null;
         public Node Input
         {
             get
@@ -25,25 +39,28 @@ namespace VAT.Logic
                 if (value != null)
                 {
                     _input.OnValueChanged += OnInputChanged;
+
+                    OnInputChanged(_input.Value);
                 }
             }
         }
 
         private void Awake()
         {
-            if (Input != null)
-            {
-                Input.OnValueChanged += OnInputChanged;
-            }
+            Input = DefaultInput;
         }
 
         private void OnDestroy()
         {
-            if (Input != null)
-            {
-                Input.OnValueChanged -= OnInputChanged;
-            }
+            Input = null;
         }
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            Input = DefaultInput;
+        }
+#endif
 
         protected abstract void OnInputChanged(float value);
     }

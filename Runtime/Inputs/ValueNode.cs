@@ -6,11 +6,31 @@ namespace VAT.Logic
     {
         [SerializeField]
         [Range(-1f, 1f)]
-        private float _value = 1f;
+        [Tooltip("The default constant value that this node will output.")]
+        private float _defaultValue = 1f;
+
+        public float DefaultValue
+        {
+            get
+            {
+                return _defaultValue;
+            }
+            set
+            {
+                _defaultValue = value;
+            }
+        }
 
         private void OnEnable()
         {
-            Value = _value;
+            Value = DefaultValue;
         }
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            Value = DefaultValue;
+        }
+#endif
     }
 }
